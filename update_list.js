@@ -40,8 +40,38 @@ async function macOS() {
   return Promise.all(jobs).then((values) => values.flat());
 }
 
+async function windows() {
+  const response = await fetch('https://raw.githubusercontent.com/mkevenaar/chocolatey-packages/refs/heads/master/automatic/postgresql/postgresql.json');
+  const versions = await response.json();
+  let plats = [];
+  let seen = {};
+  let base = {
+    emoji: "🪟",
+    deprecated: false,
+    devel: false,
+    beta: false,
+  }
+  for (const key in versions) {
+    let version = Number(key)
+    if (Number.isNaN(version)) continue;
+    if (version >= 10) {
+      version = Math.trunc(version)
+    }
+    if (seen.hasOwnProperty(version)) continue;
+    seen[version] = true;
+    plats.push(
+      { postgres: version, platform: "windows/amd64", runner: "windows-default", ...base },
+      { postgres: version, platform: "windows/arm64", runner: "windows-11-arm64", ...base },
+    );
+  }
+  return plats;
+}
+
 async function main() {
-  Promise.all([macOS()]).then((values) => console.log(values.flat()));
+  Promise.all([
+    macOS(),
+    windows(),
+  ]).then((values) => console.log(values.flat()));
 }
 
 main().catch(console.error);
