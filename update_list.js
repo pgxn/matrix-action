@@ -1,3 +1,16 @@
+/*
+ * https://raw.githubusercontent.com/actions/runner-images/refs/heads/main/README.md
+ *
+ * No amd64 because Homebrew reports:
+ * > Apple have dropped Intel x86_64 support in macOS Golden Gate (27).
+ * > GitHub Actions are dropping macOS Intel x86_64 runners in 2027.
+ */
+const ARCH = {
+  macOS: { arm64: "macos-latest" },
+  linux: { arm64: "ubuntu-24.04-arm", amd64: "ubuntu-latest" },
+  windows: { arm64: "windows-11-arm", amd64: "windows-latest" },
+};
+
 async function getFormula(name) {
   const response = await fetch(
     `https://formulae.brew.sh/api/formula/${name}.json`,
@@ -5,26 +18,22 @@ async function getFormula(name) {
   return await response.json();
 }
 
-/// Construct a new platform record for macOS from a Homebrew Formula.
-/// Returns an empty array for a disabled formula.
+/// Construct platform records for macOS from a Homebrew Formula. Returns an
+/// empty array for a disabled formula.
 function newMac(formula) {
   // Ignore disabled formulae. Empty array will be flattened away.
   if (formula.disabled) return [];
 
-  /*
-   * No amd64 because Homebrew reports:
-   * > Apple have dropped Intel x86_64 support in macOS Golden Gate (27).
-   * > GitHub Actions are dropping macOS Intel x86_64 runners in 2027.
-   */
-  return {
-    platform: "macos/arm64",
+  const v = parseInt(formula.name.slice(formula.name.indexOf("@") + 1));
+  return Object.keys(ARCH.macOS).map((arch) => ({
     emoji: "🍎",
-    runner: "macos-default",
-    postgres: parseInt(formula.name.slice(formula.name.indexOf("@") + 1)),
+    platform: `macos/${arch}`,
+    runner: ARCH.macOS[arch],
+    postgres: v,
     deprecated: formula.deprecated,
     devel: false,
     beta: false,
-  };
+  }));
 }
 
 async function macOS() {
@@ -54,12 +63,6 @@ async function windows() {
   const versions = await response.json();
   let plats = [];
   let seen = {};
-  const base = {
-    emoji: "🪟",
-    deprecated: false,
-    devel: false,
-    beta: false,
-  };
   for (const key in versions) {
     let version = Number(key);
     if (Number.isNaN(version)) continue;
@@ -69,28 +72,24 @@ async function windows() {
     if (seen.hasOwnProperty(version)) continue;
     seen[version] = true;
     plats.push(
-      {
+      Object.keys(ARCH.windows).map((arch) => ({
+        emoji: "🪟",
+        platform: `windows/${arch}`,
+        runner: ARCH.windows[arch],
         postgres: version,
-        platform: "windows/amd64",
-        runner: "windows-default",
-        ...base,
-      },
-      {
-        postgres: version,
-        platform: "windows/arm64",
-        runner: "windows-11-arm64",
-        ...base,
-      },
+        deprecated: false,
+        devel: false,
+        beta: false,
+      })),
     );
   }
-  return plats;
+  return plats.flat();
 }
 
 async function linux() {
   const response = await fetch(
     "https://salsa.debian.org/postgresql/apt.postgresql.org/-/raw/master/pgapt.conf",
   );
-  const data = await response.text();
 
   // Regular expressions to match lines of interest from pgapt.conf.
   const BETA_REGEX = /^PG_BETA_VERSION=(\d+)/;
@@ -105,8 +104,9 @@ async function linux() {
   let supported = [];
   let deprecated = [];
 
-  // Beta?
+  const data = await response.text();
   for (const line of data.split("\n")) {
+    // Beta?
     if ((matches = BETA_REGEX.exec(line)) !== null) {
       beta = Number(matches[1]);
       if (Number.isNaN(beta)) {
@@ -152,37 +152,34 @@ async function linux() {
   // Assemble the platforms.
   let plats = [];
   for (const v of supported.reverse()) {
-    pushLinux(plats, false, v, v == beta, v == dev);
+    plats.push(
+      Object.keys(ARCH.linux).map((arch) => ({
+        emoji: "🐧",
+        platform: `linux/${arch}`,
+        runner: ARCH.linux[arch],
+        postgres: v,
+        deprecated: false,
+        devel: v == dev,
+        beta: v == beta,
+      })),
+    );
   }
 
   for (const v of deprecated.reverse()) {
-    pushLinux(plats, true, v, false, false);
+    plats.push(
+      Object.keys(ARCH.linux).map((arch) => ({
+        emoji: "🐧",
+        platform: `linux/${arch}`,
+        runner: ARCH.linux[arch],
+        postgres: v,
+        deprecated: true,
+        devel: v == false,
+        beta: v == false,
+      })),
+    );
   }
 
-  return plats;
-}
-
-function pushLinux(plats, deprecated, v, beta, devel) {
-  plats.push(
-    {
-      platform: "linux/amd64",
-      emoji: "🐧",
-      runner: "ubuntu-default",
-      postgres: v,
-      deprecated: deprecated,
-      devel: devel,
-      beta: beta,
-    },
-    {
-      platform: "linux/arm64",
-      emoji: "🐧",
-      runner: "ubuntu-24.04-arm",
-      postgres: v,
-      deprecated: deprecated,
-      devel: devel,
-      beta: beta,
-    },
-  );
+  return plats.flat();
 }
 
 Promise.all([linux(), macOS(), windows()]).then((values) =>
