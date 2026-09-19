@@ -5,8 +5,8 @@ async function getFormula(name) {
   return await response.json();
 }
 
-/// Construt a new platform record for macOS from a Homebrew Formula.
-/// Returns an empty array for a diabled formula.
+/// Construct a new platform record for macOS from a Homebrew Formula.
+/// Returns an empty array for a disabled formula.
 function newMac(formula) {
   // Ignore disabled formulae. Empty array will be flattened away.
   if (formula.disabled) return [];
@@ -54,7 +54,7 @@ async function windows() {
   const versions = await response.json();
   let plats = [];
   let seen = {};
-  let base = {
+  const base = {
     emoji: "🪟",
     deprecated: false,
     devel: false,
@@ -86,10 +86,105 @@ async function windows() {
   return plats;
 }
 
-async function main() {
-  Promise.all([macOS(), windows()]).then((values) =>
-    console.log(values.flat()),
+async function linux() {
+  const response = await fetch(
+    "https://salsa.debian.org/postgresql/apt.postgresql.org/-/raw/master/pgapt.conf",
+  );
+  const data = await response.text();
+
+  // Regular expressions to match lines of interest from pgapt.conf.
+  const BETA_REGEX = /^PG_BETA_VERSION=(\d+)/;
+  const DEV_REGEX = /^PG_DEVEL_VERSION=(\d+)/;
+  const VERSIONS_REGEX = /^PG_VERSIONS="([^"]+)"/;
+  const ALL_VERSIONS_REGEX = /^PG_ALL_VERSIONS="([^$]+)/;
+
+  // Version information to collect.
+  let beta = 0;
+  let dev = 0;
+  let matches = [];
+  let supported = [];
+  let deprecated = [];
+
+  // Beta?
+  for (const line of data.split("\n")) {
+    if ((matches = BETA_REGEX.exec(line)) !== null) {
+      beta = Number(matches[1]);
+      if (Number.isNaN(beta)) {
+        throw new Error(`PG_BETA_VERSION is not a number: ${line}`);
+      }
+      continue;
+    }
+
+    // Devel?
+    if ((matches = DEV_REGEX.exec(line)) !== null) {
+      dev = Number(matches[1]);
+      if (Number.isNaN(dev)) {
+        throw new Error(`PG_DEVEL_VERSION is not a number: ${line}`);
+      }
+      continue;
+    }
+
+    // Supported versions?
+    if ((matches = VERSIONS_REGEX.exec(line)) !== null) {
+      for (const str of matches[1].split(/\s+/)) {
+        const v = Number(str);
+        if (Number.isNaN(v)) {
+          throw new Error(`PG_VERSIONS contains invalid version: ${line}`);
+        }
+        supported.push(v);
+      }
+      continue;
+    }
+
+    // Deprecated versions?
+    if ((matches = ALL_VERSIONS_REGEX.exec(line)) !== null) {
+      for (const str of matches[1].trim().split(/\s+/)) {
+        const v = Number(str);
+        if (Number.isNaN(v)) {
+          throw new Error(`PG_ALL_VERSIONS contains invalid version: ${line}`);
+        }
+        deprecated.push(v);
+      }
+      break;
+    }
+  }
+
+  // Assemble the platforms.
+  let plats = [];
+  for (const v of supported.reverse()) {
+    pushLinux(plats, false, v, v == beta, v == dev);
+  }
+
+  for (const v of deprecated.reverse()) {
+    pushLinux(plats, true, v, false, false);
+  }
+
+  return plats;
+}
+
+function pushLinux(plats, deprecated, v, beta, devel) {
+  plats.push(
+    {
+      platform: "linux/amd64",
+      emoji: "🐧",
+      runner: "ubuntu-default",
+      postgres: v,
+      deprecated: deprecated,
+      devel: devel,
+      beta: beta,
+    },
+    {
+      platform: "linux/arm64",
+      emoji: "🐧",
+      runner: "ubuntu-24.04-arm",
+      postgres: v,
+      deprecated: deprecated,
+      devel: devel,
+      beta: beta,
+    },
   );
 }
 
-main().catch(console.error);
+Promise.all([linux(), macOS(), windows()]).then((values) =>
+  console.log(values.flat()),
+);
