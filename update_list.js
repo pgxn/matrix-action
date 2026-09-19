@@ -27,7 +27,8 @@ function newMac(formula) {
   const v = parseInt(formula.name.slice(formula.name.indexOf("@") + 1));
   return Object.keys(ARCH.macOS).map((arch) => ({
     emoji: "🍎",
-    platform: `macos/${arch}`,
+    os: "macos",
+    arch: arch,
     runner: ARCH.macOS[arch],
     postgres: v,
     deprecated: formula.deprecated,
@@ -74,7 +75,8 @@ async function windows() {
     plats.push(
       Object.keys(ARCH.windows).map((arch) => ({
         emoji: "🪟",
-        platform: `windows/${arch}`,
+        os: "windows",
+        arch: arch,
         runner: ARCH.windows[arch],
         postgres: version,
         deprecated: false,
@@ -155,7 +157,8 @@ async function linux() {
     plats.push(
       Object.keys(ARCH.linux).map((arch) => ({
         emoji: "🐧",
-        platform: `linux/${arch}`,
+        os: "linux",
+        arch: arch,
         runner: ARCH.linux[arch],
         postgres: v,
         deprecated: false,
@@ -169,7 +172,8 @@ async function linux() {
     plats.push(
       Object.keys(ARCH.linux).map((arch) => ({
         emoji: "🐧",
-        platform: `linux/${arch}`,
+        os: "linux",
+        arch: arch,
         runner: ARCH.linux[arch],
         postgres: v,
         deprecated: true,
