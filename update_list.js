@@ -187,5 +187,5 @@ async function linux() {
 }
 
 Promise.all([linux(), macOS(), windows()]).then((values) =>
-  console.log(values.flat()),
+  console.log(JSON.stringify(values.flat(), null, "  ")),
 );

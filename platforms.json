@@ -1,0 +1,732 @@
+[
+  {
+    "emoji": "🐧",
+    "os": "linux",
+    "arch": "arm64",
+    "runner": "ubuntu-24.04-arm",
+    "postgres": 20,
+    "deprecated": false,
+    "devel": true,
+    "beta": false
+  },
+  {
+    "emoji": "🐧",
+    "os": "linux",
+    "arch": "amd64",
+    "runner": "ubuntu-latest",
+    "postgres": 20,
+    "deprecated": false,
+    "devel": true,
+    "beta": false
+  },
+  {
+    "emoji": "🐧",
+    "os": "linux",
+    "arch": "arm64",
+    "runner": "ubuntu-24.04-arm",
+    "postgres": 19,
+    "deprecated": false,
+    "devel": false,
+    "beta": true
+  },
+  {
+    "emoji": "🐧",
+    "os": "linux",
+    "arch": "amd64",
+    "runner": "ubuntu-latest",
+    "postgres": 19,
+    "deprecated": false,
+    "devel": false,
+    "beta": true
+  },
+  {
+    "emoji": "🐧",
+    "os": "linux",
+    "arch": "arm64",
+    "runner": "ubuntu-24.04-arm",
+    "postgres": 18,
+    "deprecated": false,
+    "devel": false,
+    "beta": false
+  },
+  {
+    "emoji": "🐧",
+    "os": "linux",
+    "arch": "amd64",
+    "runner": "ubuntu-latest",
+    "postgres": 18,
+    "deprecated": false,
+    "devel": false,
+    "beta": false
+  },
+  {
+    "emoji": "🐧",
+    "os": "linux",
+    "arch": "arm64",
+    "runner": "ubuntu-24.04-arm",
+    "postgres": 17,
+    "deprecated": false,
+    "devel": false,
+    "beta": false
+  },
+  {
+    "emoji": "🐧",
+    "os": "linux",
+    "arch": "amd64",
+    "runner": "ubuntu-latest",
+    "postgres": 17,
+    "deprecated": false,
+    "devel": false,
+    "beta": false
+  },
+  {
+    "emoji": "🐧",
+    "os": "linux",
+    "arch": "arm64",
+    "runner": "ubuntu-24.04-arm",
+    "postgres": 16,
+    "deprecated": false,
+    "devel": false,
+    "beta": false
+  },
+  {
+    "emoji": "🐧",
+    "os": "linux",
+    "arch": "amd64",
+    "runner": "ubuntu-latest",
+    "postgres": 16,
+    "deprecated": false,
+    "devel": false,
+    "beta": false
+  },
+  {
+    "emoji": "🐧",
+    "os": "linux",
+    "arch": "arm64",
+    "runner": "ubuntu-24.04-arm",
+    "postgres": 15,
+    "deprecated": false,
+    "devel": false,
+    "beta": false
+  },
+  {
+    "emoji": "🐧",
+    "os": "linux",
+    "arch": "amd64",
+    "runner": "ubuntu-latest",
+    "postgres": 15,
+    "deprecated": false,
+    "devel": false,
+    "beta": false
+  },
+  {
+    "emoji": "🐧",
+    "os": "linux",
+    "arch": "arm64",
+    "runner": "ubuntu-24.04-arm",
+    "postgres": 14,
+    "deprecated": false,
+    "devel": false,
+    "beta": false
+  },
+  {
+    "emoji": "🐧",
+    "os": "linux",
+    "arch": "amd64",
+    "runner": "ubuntu-latest",
+    "postgres": 14,
+    "deprecated": false,
+    "devel": false,
+    "beta": false
+  },
+  {
+    "emoji": "🐧",
+    "os": "linux",
+    "arch": "arm64",
+    "runner": "ubuntu-24.04-arm",
+    "postgres": 13,
+    "deprecated": false,
+    "devel": false,
+    "beta": false
+  },
+  {
+    "emoji": "🐧",
+    "os": "linux",
+    "arch": "amd64",
+    "runner": "ubuntu-latest",
+    "postgres": 13,
+    "deprecated": false,
+    "devel": false,
+    "beta": false
+  },
+  {
+    "emoji": "🐧",
+    "os": "linux",
+    "arch": "arm64",
+    "runner": "ubuntu-24.04-arm",
+    "postgres": 12,
+    "deprecated": false,
+    "devel": false,
+    "beta": false
+  },
+  {
+    "emoji": "🐧",
+    "os": "linux",
+    "arch": "amd64",
+    "runner": "ubuntu-latest",
+    "postgres": 12,
+    "deprecated": false,
+    "devel": false,
+    "beta": false
+  },
+  {
+    "emoji": "🐧",
+    "os": "linux",
+    "arch": "arm64",
+    "runner": "ubuntu-24.04-arm",
+    "postgres": 11,
+    "deprecated": false,
+    "devel": false,
+    "beta": false
+  },
+  {
+    "emoji": "🐧",
+    "os": "linux",
+    "arch": "amd64",
+    "runner": "ubuntu-latest",
+    "postgres": 11,
+    "deprecated": false,
+    "devel": false,
+    "beta": false
+  },
+  {
+    "emoji": "🐧",
+    "os": "linux",
+    "arch": "arm64",
+    "runner": "ubuntu-24.04-arm",
+    "postgres": 10,
+    "deprecated": false,
+    "devel": false,
+    "beta": false
+  },
+  {
+    "emoji": "🐧",
+    "os": "linux",
+    "arch": "amd64",
+    "runner": "ubuntu-latest",
+    "postgres": 10,
+    "deprecated": false,
+    "devel": false,
+    "beta": false
+  },
+  {
+    "emoji": "🐧",
+    "os": "linux",
+    "arch": "arm64",
+    "runner": "ubuntu-24.04-arm",
+    "postgres": 9.6,
+    "deprecated": true,
+    "devel": false,
+    "beta": false
+  },
+  {
+    "emoji": "🐧",
+    "os": "linux",
+    "arch": "amd64",
+    "runner": "ubuntu-latest",
+    "postgres": 9.6,
+    "deprecated": true,
+    "devel": false,
+    "beta": false
+  },
+  {
+    "emoji": "🐧",
+    "os": "linux",
+    "arch": "arm64",
+    "runner": "ubuntu-24.04-arm",
+    "postgres": 9.5,
+    "deprecated": true,
+    "devel": false,
+    "beta": false
+  },
+  {
+    "emoji": "🐧",
+    "os": "linux",
+    "arch": "amd64",
+    "runner": "ubuntu-latest",
+    "postgres": 9.5,
+    "deprecated": true,
+    "devel": false,
+    "beta": false
+  },
+  {
+    "emoji": "🐧",
+    "os": "linux",
+    "arch": "arm64",
+    "runner": "ubuntu-24.04-arm",
+    "postgres": 9.4,
+    "deprecated": true,
+    "devel": false,
+    "beta": false
+  },
+  {
+    "emoji": "🐧",
+    "os": "linux",
+    "arch": "amd64",
+    "runner": "ubuntu-latest",
+    "postgres": 9.4,
+    "deprecated": true,
+    "devel": false,
+    "beta": false
+  },
+  {
+    "emoji": "🐧",
+    "os": "linux",
+    "arch": "arm64",
+    "runner": "ubuntu-24.04-arm",
+    "postgres": 9.3,
+    "deprecated": true,
+    "devel": false,
+    "beta": false
+  },
+  {
+    "emoji": "🐧",
+    "os": "linux",
+    "arch": "amd64",
+    "runner": "ubuntu-latest",
+    "postgres": 9.3,
+    "deprecated": true,
+    "devel": false,
+    "beta": false
+  },
+  {
+    "emoji": "🐧",
+    "os": "linux",
+    "arch": "arm64",
+    "runner": "ubuntu-24.04-arm",
+    "postgres": 9.2,
+    "deprecated": true,
+    "devel": false,
+    "beta": false
+  },
+  {
+    "emoji": "🐧",
+    "os": "linux",
+    "arch": "amd64",
+    "runner": "ubuntu-latest",
+    "postgres": 9.2,
+    "deprecated": true,
+    "devel": false,
+    "beta": false
+  },
+  {
+    "emoji": "🐧",
+    "os": "linux",
+    "arch": "arm64",
+    "runner": "ubuntu-24.04-arm",
+    "postgres": 9.1,
+    "deprecated": true,
+    "devel": false,
+    "beta": false
+  },
+  {
+    "emoji": "🐧",
+    "os": "linux",
+    "arch": "amd64",
+    "runner": "ubuntu-latest",
+    "postgres": 9.1,
+    "deprecated": true,
+    "devel": false,
+    "beta": false
+  },
+  {
+    "emoji": "🐧",
+    "os": "linux",
+    "arch": "arm64",
+    "runner": "ubuntu-24.04-arm",
+    "postgres": 9,
+    "deprecated": true,
+    "devel": false,
+    "beta": false
+  },
+  {
+    "emoji": "🐧",
+    "os": "linux",
+    "arch": "amd64",
+    "runner": "ubuntu-latest",
+    "postgres": 9,
+    "deprecated": true,
+    "devel": false,
+    "beta": false
+  },
+  {
+    "emoji": "🐧",
+    "os": "linux",
+    "arch": "arm64",
+    "runner": "ubuntu-24.04-arm",
+    "postgres": 8.4,
+    "deprecated": true,
+    "devel": false,
+    "beta": false
+  },
+  {
+    "emoji": "🐧",
+    "os": "linux",
+    "arch": "amd64",
+    "runner": "ubuntu-latest",
+    "postgres": 8.4,
+    "deprecated": true,
+    "devel": false,
+    "beta": false
+  },
+  {
+    "emoji": "🐧",
+    "os": "linux",
+    "arch": "arm64",
+    "runner": "ubuntu-24.04-arm",
+    "postgres": 8.3,
+    "deprecated": true,
+    "devel": false,
+    "beta": false
+  },
+  {
+    "emoji": "🐧",
+    "os": "linux",
+    "arch": "amd64",
+    "runner": "ubuntu-latest",
+    "postgres": 8.3,
+    "deprecated": true,
+    "devel": false,
+    "beta": false
+  },
+  {
+    "emoji": "🐧",
+    "os": "linux",
+    "arch": "arm64",
+    "runner": "ubuntu-24.04-arm",
+    "postgres": 8.2,
+    "deprecated": true,
+    "devel": false,
+    "beta": false
+  },
+  {
+    "emoji": "🐧",
+    "os": "linux",
+    "arch": "amd64",
+    "runner": "ubuntu-latest",
+    "postgres": 8.2,
+    "deprecated": true,
+    "devel": false,
+    "beta": false
+  },
+  {
+    "emoji": "🍎",
+    "os": "macos",
+    "arch": "arm64",
+    "runner": "macos-latest",
+    "postgres": 18,
+    "deprecated": false,
+    "devel": false,
+    "beta": false
+  },
+  {
+    "emoji": "🍎",
+    "os": "macos",
+    "arch": "arm64",
+    "runner": "macos-latest",
+    "postgres": 17,
+    "deprecated": false,
+    "devel": false,
+    "beta": false
+  },
+  {
+    "emoji": "🍎",
+    "os": "macos",
+    "arch": "arm64",
+    "runner": "macos-latest",
+    "postgres": 16,
+    "deprecated": false,
+    "devel": false,
+    "beta": false
+  },
+  {
+    "emoji": "🍎",
+    "os": "macos",
+    "arch": "arm64",
+    "runner": "macos-latest",
+    "postgres": 15,
+    "deprecated": false,
+    "devel": false,
+    "beta": false
+  },
+  {
+    "emoji": "🍎",
+    "os": "macos",
+    "arch": "arm64",
+    "runner": "macos-latest",
+    "postgres": 14,
+    "deprecated": true,
+    "devel": false,
+    "beta": false
+  },
+  {
+    "emoji": "🪟",
+    "os": "windows",
+    "arch": "arm64",
+    "runner": "windows-11-arm",
+    "postgres": 9.4,
+    "deprecated": false,
+    "devel": false,
+    "beta": false
+  },
+  {
+    "emoji": "🪟",
+    "os": "windows",
+    "arch": "amd64",
+    "runner": "windows-latest",
+    "postgres": 9.4,
+    "deprecated": false,
+    "devel": false,
+    "beta": false
+  },
+  {
+    "emoji": "🪟",
+    "os": "windows",
+    "arch": "arm64",
+    "runner": "windows-11-arm",
+    "postgres": 9.5,
+    "deprecated": false,
+    "devel": false,
+    "beta": false
+  },
+  {
+    "emoji": "🪟",
+    "os": "windows",
+    "arch": "amd64",
+    "runner": "windows-latest",
+    "postgres": 9.5,
+    "deprecated": false,
+    "devel": false,
+    "beta": false
+  },
+  {
+    "emoji": "🪟",
+    "os": "windows",
+    "arch": "arm64",
+    "runner": "windows-11-arm",
+    "postgres": 9.6,
+    "deprecated": false,
+    "devel": false,
+    "beta": false
+  },
+  {
+    "emoji": "🪟",
+    "os": "windows",
+    "arch": "amd64",
+    "runner": "windows-latest",
+    "postgres": 9.6,
+    "deprecated": false,
+    "devel": false,
+    "beta": false
+  },
+  {
+    "emoji": "🪟",
+    "os": "windows",
+    "arch": "arm64",
+    "runner": "windows-11-arm",
+    "postgres": 10,
+    "deprecated": false,
+    "devel": false,
+    "beta": false
+  },
+  {
+    "emoji": "🪟",
+    "os": "windows",
+    "arch": "amd64",
+    "runner": "windows-latest",
+    "postgres": 10,
+    "deprecated": false,
+    "devel": false,
+    "beta": false
+  },
+  {
+    "emoji": "🪟",
+    "os": "windows",
+    "arch": "arm64",
+    "runner": "windows-11-arm",
+    "postgres": 11,
+    "deprecated": false,
+    "devel": false,
+    "beta": false
+  },
+  {
+    "emoji": "🪟",
+    "os": "windows",
+    "arch": "amd64",
+    "runner": "windows-latest",
+    "postgres": 11,
+    "deprecated": false,
+    "devel": false,
+    "beta": false
+  },
+  {
+    "emoji": "🪟",
+    "os": "windows",
+    "arch": "arm64",
+    "runner": "windows-11-arm",
+    "postgres": 12,
+    "deprecated": false,
+    "devel": false,
+    "beta": false
+  },
+  {
+    "emoji": "🪟",
+    "os": "windows",
+    "arch": "amd64",
+    "runner": "windows-latest",
+    "postgres": 12,
+    "deprecated": false,
+    "devel": false,
+    "beta": false
+  },
+  {
+    "emoji": "🪟",
+    "os": "windows",
+    "arch": "arm64",
+    "runner": "windows-11-arm",
+    "postgres": 13,
+    "deprecated": false,
+    "devel": false,
+    "beta": false
+  },
+  {
+    "emoji": "🪟",
+    "os": "windows",
+    "arch": "amd64",
+    "runner": "windows-latest",
+    "postgres": 13,
+    "deprecated": false,
+    "devel": false,
+    "beta": false
+  },
+  {
+    "emoji": "🪟",
+    "os": "windows",
+    "arch": "arm64",
+    "runner": "windows-11-arm",
+    "postgres": 14,
+    "deprecated": false,
+    "devel": false,
+    "beta": false
+  },
+  {
+    "emoji": "🪟",
+    "os": "windows",
+    "arch": "amd64",
+    "runner": "windows-latest",
+    "postgres": 14,
+    "deprecated": false,
+    "devel": false,
+    "beta": false
+  },
+  {
+    "emoji": "🪟",
+    "os": "windows",
+    "arch": "arm64",
+    "runner": "windows-11-arm",
+    "postgres": 15,
+    "deprecated": false,
+    "devel": false,
+    "beta": false
+  },
+  {
+    "emoji": "🪟",
+    "os": "windows",
+    "arch": "amd64",
+    "runner": "windows-latest",
+    "postgres": 15,
+    "deprecated": false,
+    "devel": false,
+    "beta": false
+  },
+  {
+    "emoji": "🪟",
+    "os": "windows",
+    "arch": "arm64",
+    "runner": "windows-11-arm",
+    "postgres": 9.3,
+    "deprecated": false,
+    "devel": false,
+    "beta": false
+  },
+  {
+    "emoji": "🪟",
+    "os": "windows",
+    "arch": "amd64",
+    "runner": "windows-latest",
+    "postgres": 9.3,
+    "deprecated": false,
+    "devel": false,
+    "beta": false
+  },
+  {
+    "emoji": "🪟",
+    "os": "windows",
+    "arch": "arm64",
+    "runner": "windows-11-arm",
+    "postgres": 16,
+    "deprecated": false,
+    "devel": false,
+    "beta": false
+  },
+  {
+    "emoji": "🪟",
+    "os": "windows",
+    "arch": "amd64",
+    "runner": "windows-latest",
+    "postgres": 16,
+    "deprecated": false,
+    "devel": false,
+    "beta": false
+  },
+  {
+    "emoji": "🪟",
+    "os": "windows",
+    "arch": "arm64",
+    "runner": "windows-11-arm",
+    "postgres": 17,
+    "deprecated": false,
+    "devel": false,
+    "beta": false
+  },
+  {
+    "emoji": "🪟",
+    "os": "windows",
+    "arch": "amd64",
+    "runner": "windows-latest",
+    "postgres": 17,
+    "deprecated": false,
+    "devel": false,
+    "beta": false
+  },
+  {
+    "emoji": "🪟",
+    "os": "windows",
+    "arch": "arm64",
+    "runner": "windows-11-arm",
+    "postgres": 18,
+    "deprecated": false,
+    "devel": false,
+    "beta": false
+  },
+  {
+    "emoji": "🪟",
+    "os": "windows",
+    "arch": "amd64",
+    "runner": "windows-latest",
+    "postgres": 18,
+    "deprecated": false,
+    "devel": false,
+    "beta": false
+  }
+]
