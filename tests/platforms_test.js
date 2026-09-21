@@ -1,7 +1,8 @@
-import { readFileSync } from "fs";
-import test from "node:test";
+import { test } from "node:test";
+import path from "node:path";
+import os from "node:os";
 import assert from "node:assert/strict";
-import { listPlatforms } from "../platforms.js";
+import fs from "node:fs/promises";
 
 // Prevent platforms.js from executing.
 process.env.MATRIX_TESTING = 1;
@@ -78,5 +79,74 @@ import("../platforms.js").then((mod) => {
       arches: "hi",
       plats: "sleep",
     });
+  });
+
+  test("basic platforms", async (t) => {
+    let basic = [
+      {
+        emoji: "🐧",
+        os: "linux",
+        arch: "arm64",
+        runner: "ubuntu-24.04-arm",
+        postgres: 18,
+        deprecated: false,
+        devel: false,
+        beta: false,
+      },
+    ];
+    await using tmpDir = await fs.mkdtempDisposable(
+      path.join(os.tmpdir(), "matrix-basic-"),
+    );
+    const file = path.join(tmpDir.path, "basic.json");
+    await fs.writeFile(file, JSON.stringify(basic));
+    assert.deepStrictEqual(await mod.listPlatforms({ file: file }), basic);
+  });
+
+  test("platform versions", async (t) => {
+    const v9 = { os: "linux", postgres: 9.4 };
+    const v16 = { os: "linux", postgres: 16 };
+    const v17 = { os: "linux", postgres: 17 };
+    const v18 = { os: "linux", postgres: 18 };
+    const v19 = { os: "linux", postgres: 19 };
+    let versions = [v9, v16, v17, v18, v19];
+    await using tmpDir = await fs.mkdtempDisposable(
+      path.join(os.tmpdir(), "matrix-versions-"),
+    );
+    const file = path.join(tmpDir.path, "versions.json");
+    await fs.writeFile(file, JSON.stringify(versions));
+    // No version specifications.
+    assert.deepStrictEqual(await mod.listPlatforms({ file: file }), versions);
+
+    // Min version <= earliest
+    assert.deepStrictEqual(
+      await mod.listPlatforms({ file: file, min: 9.4 }),
+      versions,
+    );
+    // Min version > earliest
+    assert.deepStrictEqual(
+      await mod.listPlatforms({ file: file, beta: true, min: 9.5 }),
+      [v16, v17, v18, v19],
+    );
+    assert.deepStrictEqual(
+      await mod.listPlatforms({ file: file, beta: true, min: 18 }),
+      [v18, v19],
+    );
+
+    // Max version <= earliest
+    assert.deepStrictEqual(
+      await mod.listPlatforms({ file: file, beta: true, max: 19 }),
+      versions,
+    );
+
+    assert.deepStrictEqual(
+      await mod.listPlatforms({ file: file, beta: true, max: 9.6 }),
+      [v9],
+    );
+
+    // Min and max
+    assert.deepStrictEqual(
+      await mod.listPlatforms({ file: file, min: 9.6, max: 18 }),
+      [v16, v17, v18],
+    );
   });
 });
