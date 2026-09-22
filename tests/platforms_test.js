@@ -3,6 +3,7 @@ import path from "node:path";
 import os from "node:os";
 import assert from "node:assert/strict";
 import fs from "node:fs/promises";
+import { deprecate } from "node:util";
 
 // Prevent platforms.js from executing.
 process.env.MATRIX_TESTING = 1;
@@ -109,11 +110,14 @@ import("../platforms.js").then((mod) => {
     const v18 = { os: "linux", postgres: 18 };
     const v19 = { os: "linux", postgres: 19 };
     let versions = [v9, v16, v17, v18, v19];
+
+    // Write out platforms file.
     await using tmpDir = await fs.mkdtempDisposable(
       path.join(os.tmpdir(), "matrix-versions-"),
     );
     const file = path.join(tmpDir.path, "versions.json");
     await fs.writeFile(file, JSON.stringify(versions));
+
     // No version specifications.
     assert.deepStrictEqual(await mod.listPlatforms({ file: file }), versions);
 
@@ -147,6 +151,190 @@ import("../platforms.js").then((mod) => {
     assert.deepStrictEqual(
       await mod.listPlatforms({ file: file, min: 9.6, max: 18 }),
       [v16, v17, v18],
+    );
+  });
+
+  test("devel, beta, deprecated", async (t) => {
+    const devel = { os: "linux", postgres: 20, devel: true };
+    const beta = { os: "linux", postgres: 19, beta: true };
+    const ok = { os: "linux", postgres: 18 };
+    const old = { os: "linux", postgres: 13, deprecated: true };
+
+    // Write out platforms file.
+    await using tmpDir = await fs.mkdtempDisposable(
+      path.join(os.tmpdir(), "matrix-status-"),
+    );
+    const file = path.join(tmpDir.path, "status.json");
+    await fs.writeFile(file, JSON.stringify([devel, beta, ok, old]));
+
+    // No devel, beta, deprecated by default
+    assert.deepStrictEqual(await mod.listPlatforms({ file: file }), [ok]);
+
+    // Include deprecated.
+    assert.deepStrictEqual(
+      await mod.listPlatforms({ file: file, min: 0, old: true }),
+      [ok, old],
+    );
+
+    // Include devel.
+    assert.deepStrictEqual(
+      await mod.listPlatforms({ file: file, min: 0, dev: true }),
+      [devel, ok],
+    );
+
+    // Include beta.
+    assert.deepStrictEqual(
+      await mod.listPlatforms({ file: file, beta: true }),
+      [beta, ok],
+    );
+
+    // Include beta and devel.
+    assert.deepStrictEqual(
+      await mod.listPlatforms({ file: file, beta: true, dev: true }),
+      [devel, beta, ok],
+    );
+
+    // Include beta and deprecated.
+    assert.deepStrictEqual(
+      await mod.listPlatforms({ file: file, beta: true, old: true }),
+      [beta, ok, old],
+    );
+
+    // Include all.
+    assert.deepStrictEqual(
+      await mod.listPlatforms({ file: file, beta: true, dev: true, old: true }),
+      [devel, beta, ok, old],
+    );
+
+    // Exclude devel, beta, old.
+    assert.deepStrictEqual(
+      await mod.listPlatforms({
+        file: file,
+        beta: false,
+        dev: false,
+        old: false,
+      }),
+      [ok],
+    );
+  });
+
+  test("platforms", async (t) => {
+    const macosArm = { os: "macos", arch: "arm64", postgres: 18 };
+    const macosAmd = { os: "macos", arch: "amd64", postgres: 18 };
+    const linuxArm = { os: "linux", arch: "arm64", postgres: 18 };
+    const linuxAmd = { os: "linux", arch: "amd64", postgres: 18 };
+    const windowsArm = { os: "windows", arch: "arm64", postgres: 18 };
+    const windowsAmd = { os: "windows", arch: "amd64", postgres: 18 };
+    const plats = [
+      macosArm,
+      macosAmd,
+      linuxAmd,
+      linuxArm,
+      windowsAmd,
+      windowsArm,
+    ];
+
+    // Write out platforms file.
+    await using tmpDir = await fs.mkdtempDisposable(
+      path.join(os.tmpdir(), "matrix-status-"),
+    );
+    const file = path.join(tmpDir.path, "status.json");
+    await fs.writeFile(file, JSON.stringify(plats));
+
+    // Includes all by default.
+    assert.deepStrictEqual(await mod.listPlatforms({ file: file }), plats);
+
+    // Exclude macOS.
+    assert.deepStrictEqual(
+      await mod.listPlatforms({ file: file, oses: "macos" }),
+      [linuxAmd, linuxArm, windowsAmd, windowsArm],
+    );
+
+    // Exclude macOS & windows.
+    assert.deepStrictEqual(
+      await mod.listPlatforms({ file: file, oses: "macos windows" }),
+      [linuxAmd, linuxArm],
+    );
+
+    // Ignore unknown OS.
+    assert.deepStrictEqual(
+      await mod.listPlatforms({ file: file, oses: "nonesuch" }),
+      plats,
+    );
+
+    // Ignore unknown OS with valid OS.
+    assert.deepStrictEqual(
+      await mod.listPlatforms({ file: file, oses: "nonesuch macos" }),
+      [linuxAmd, linuxArm, windowsAmd, windowsArm],
+    );
+
+    // Exclude arm64.
+    assert.deepStrictEqual(
+      await mod.listPlatforms({ file: file, arches: "arm64" }),
+      [macosAmd, linuxAmd, windowsAmd],
+    );
+
+    // Exclude amd64.
+    assert.deepStrictEqual(
+      await mod.listPlatforms({ file: file, arches: "amd64" }),
+      [macosArm, linuxArm, windowsArm],
+    );
+
+    // Exclude both.
+    assert.deepStrictEqual(
+      await mod.listPlatforms({ file: file, arches: "amd64, arm64" }),
+      [],
+    );
+
+    // Ignore unknown arch.
+    assert.deepStrictEqual(
+      await mod.listPlatforms({ file: file, arches: "nonesuch" }),
+      plats,
+    );
+
+    // Ignore unknown arch alongside valid.
+    assert.deepStrictEqual(
+      await mod.listPlatforms({ file: file, arches: "nonesuch amd64" }),
+      [macosArm, linuxArm, windowsArm],
+    );
+
+    // Exclude macos amd.
+    assert.deepStrictEqual(
+      await mod.listPlatforms({ file: file, plats: "macos/amd64" }),
+      [macosArm, linuxAmd, linuxArm, windowsAmd, windowsArm],
+    );
+
+    // Exclude windows arm.
+    assert.deepStrictEqual(
+      await mod.listPlatforms({ file: file, plats: "windows/arm64" }),
+      [macosArm, macosAmd, linuxAmd, linuxArm, windowsAmd],
+    );
+
+    // Exclude multiples.
+    assert.deepStrictEqual(
+      await mod.listPlatforms({
+        file: file,
+        plats: "windows/arm64 linux/arm64",
+      }),
+      [macosArm, macosAmd, linuxAmd, windowsAmd],
+    );
+
+    // Ignore unknown.
+    assert.deepStrictEqual(
+      await mod.listPlatforms({
+        file: file,
+        plats: "linux/ppc64el",
+      }),
+      plats,
+    );
+
+    // Ignore unknown alongside valid.
+    assert.deepStrictEqual(
+      await mod.listPlatforms({
+        file: file,
+        plats: "windows/arm64,linux/ppc64el",
+      }),
+      [macosArm, macosAmd, linuxAmd, linuxArm, windowsAmd],
     );
   });
 });
