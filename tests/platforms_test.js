@@ -16,6 +16,7 @@ import("../platforms.js").then((mod) => {
   delete process.env.MATRIX_DEVELOPMENT;
   delete process.env.MATRIX_BETA;
   delete process.env.MATRIX_DEPRECATED;
+  delete process.env.MATRIX_SUPPORTED;
   delete process.env.MATRIX_EXCLUDE_OS;
   delete process.env.MATRIX_EXCLUDE_ARCH;
   delete process.env.MATRIX_EXCLUDE_PLATFORM;
@@ -28,6 +29,7 @@ import("../platforms.js").then((mod) => {
       max: Number.MAX_SAFE_INTEGER,
       dev: false,
       beta: false,
+      supp: false,
       old: false,
       oses: undefined,
       arches: undefined,
@@ -42,6 +44,7 @@ import("../platforms.js").then((mod) => {
     process.env.MATRIX_MAX_VERSION = 22;
     process.env.MATRIX_DEVELOPMENT = 1;
     process.env.MATRIX_BETA = 1;
+    process.env.MATRIX_SUPPORTED = "t";
     process.env.MATRIX_DEPRECATED = 1;
     process.env.MATRIX_EXCLUDE_OS = "macos,windows";
     process.env.MATRIX_EXCLUDE_ARCH = "amd64";
@@ -52,6 +55,7 @@ import("../platforms.js").then((mod) => {
       max: 22,
       dev: true,
       beta: true,
+      supp: true,
       old: true,
       oses: "macos,windows",
       arches: "amd64",
@@ -65,6 +69,7 @@ import("../platforms.js").then((mod) => {
     process.env.MATRIX_MAX_VERSION = "nan";
     process.env.MATRIX_DEVELOPMENT = "false";
     process.env.MATRIX_BETA = "f";
+    process.env.MATRIX_SUPPORTED = "f";
     process.env.MATRIX_DEPRECATED = "0";
     process.env.MATRIX_EXCLUDE_OS = "true";
     process.env.MATRIX_EXCLUDE_ARCH = "hi";
@@ -75,6 +80,7 @@ import("../platforms.js").then((mod) => {
       max: Number.MAX_SAFE_INTEGER,
       dev: false,
       beta: false,
+      supp: false,
       old: false,
       oses: "true",
       arches: "hi",
@@ -154,56 +160,66 @@ import("../platforms.js").then((mod) => {
     );
   });
 
-  test("devel, beta, deprecated", async (t) => {
+  test("devel, beta, supported, deprecated", async (t) => {
     const devel = { os: "linux", postgres: 20, devel: true };
     const beta = { os: "linux", postgres: 19, beta: true };
     const ok = { os: "linux", postgres: 18 };
-    const old = { os: "linux", postgres: 13, deprecated: true };
+    const unsup = { os: "linux", postgres: 13, unsupported: true };
+    const old = { os: "linux", postgres: 12, deprecated: true };
 
     // Write out platforms file.
     await using tmpDir = await fs.mkdtempDisposable(
       path.join(os.tmpdir(), "matrix-status-"),
     );
     const file = path.join(tmpDir.path, "status.json");
-    await fs.writeFile(file, JSON.stringify([devel, beta, ok, old]));
+    await fs.writeFile(file, JSON.stringify([devel, beta, ok, unsup, old]));
 
-    // No devel, beta, deprecated by default
-    assert.deepStrictEqual(await mod.listPlatforms({ file: file }), [ok]);
+    // No devel, beta, or deprecated by default
+    assert.deepStrictEqual(
+      await mod.listPlatforms({ file: file, min: 0, oses: "macos" }),
+      [ok, unsup],
+    );
 
     // Include deprecated.
     assert.deepStrictEqual(
       await mod.listPlatforms({ file: file, min: 0, old: true }),
-      [ok, old],
+      [ok, unsup, old],
+    );
+
+    // Include supported.
+    assert.deepStrictEqual(
+      await mod.listPlatforms({ file: file, min: 0, supp: true }),
+      [ok],
     );
 
     // Include devel.
     assert.deepStrictEqual(
       await mod.listPlatforms({ file: file, min: 0, dev: true }),
-      [devel, ok],
+      [devel, ok, unsup],
     );
 
     // Include beta.
     assert.deepStrictEqual(
       await mod.listPlatforms({ file: file, beta: true }),
-      [beta, ok],
+      [beta, ok, unsup],
     );
 
     // Include beta and devel.
     assert.deepStrictEqual(
       await mod.listPlatforms({ file: file, beta: true, dev: true }),
-      [devel, beta, ok],
+      [devel, beta, ok, unsup],
     );
 
     // Include beta and deprecated.
     assert.deepStrictEqual(
       await mod.listPlatforms({ file: file, beta: true, old: true }),
-      [beta, ok, old],
+      [beta, ok, unsup, old],
     );
 
     // Include all.
     assert.deepStrictEqual(
       await mod.listPlatforms({ file: file, beta: true, dev: true, old: true }),
-      [devel, beta, ok, old],
+      [devel, beta, ok, unsup, old],
     );
 
     // Exclude devel, beta, old.
@@ -214,7 +230,7 @@ import("../platforms.js").then((mod) => {
         dev: false,
         old: false,
       }),
-      [ok],
+      [ok, unsup],
     );
   });
 

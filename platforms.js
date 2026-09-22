@@ -9,6 +9,7 @@ export async function listPlatforms(p) {
     if (cfg.devel && !p.dev) continue;
     if (cfg.beta && !p.beta) continue;
     if (cfg.deprecated && !p.old) continue;
+    if (cfg.unsupported && p.supp) continue;
     if (p.oses && new RegExp(`\\b${cfg.os}\\b`).test(p.oses)) continue;
     if (p.arches && new RegExp(`\\b${cfg.arch}\\b`).test(p.arches)) continue;
     if (p.plats && new RegExp(`\\b${cfg.os}/${cfg.arch}\\b`).test(p.plats))
@@ -31,6 +32,7 @@ export function params() {
     max: Number(process.env.MATRIX_MAX_VERSION) || Number.MAX_SAFE_INTEGER,
     dev: bool(process.env.MATRIX_DEVELOPMENT),
     beta: bool(process.env.MATRIX_BETA),
+    supp: bool(process.env.MATRIX_SUPPORTED),
     old: bool(process.env.MATRIX_DEPRECATED),
     oses: process.env.MATRIX_EXCLUDE_OS,
     arches: process.env.MATRIX_EXCLUDE_ARCH,
