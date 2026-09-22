@@ -20,7 +20,7 @@ async function getFormula(name) {
 
 /// Construct platform records for macOS from a Homebrew Formula. Returns an
 /// empty array for a disabled formula.
-function newMac(formula) {
+function newMac(formula, minSupported) {
   // Ignore disabled formulae. Empty array will be flattened away.
   if (formula.disabled) return [];
 
@@ -31,33 +31,33 @@ function newMac(formula) {
     arch: arch,
     runner: ARCH.macOS[arch],
     postgres: v,
+    unsupported: v < minSupported,
     deprecated: formula.deprecated,
     devel: false,
     beta: false,
   }));
 }
 
-async function macOS() {
+async function macOS(minSupported) {
   // Start with the known good version.
-  const DEFAULT_BREW_VERSION = (process.env.DEFAULT_BREW_VERSION =
-    "postgresql@18");
+  const DEFAULT_BREW_VERSION = `postgresql@${process.env.DEFAULT_BREW_VERSION || "18"}`;
   const formula = await getFormula(DEFAULT_BREW_VERSION);
 
   // Create async jobs to fetch and transform the results for all versions.
   let jobs = [
     new Promise((resolve) => {
-      resolve(newMac(formula));
+      resolve(newMac(formula, minSupported));
     }),
   ];
   for (const name of formula.versioned_formulae) {
-    jobs.push(getFormula(name).then(newMac));
+    jobs.push(getFormula(name).then((f) => newMac(f, minSupported)));
   }
 
   // Flatten the results.
   return Promise.all(jobs).then((values) => values.flat());
 }
 
-async function windows() {
+async function windows(minSupported) {
   const response = await fetch(
     "https://raw.githubusercontent.com/mkevenaar/chocolatey-packages/refs/heads/master/automatic/postgresql/postgresql.json",
   );
@@ -79,6 +79,7 @@ async function windows() {
         arch: arch,
         runner: ARCH.windows[arch],
         postgres: version,
+        unsupported: version < minSupported,
         deprecated: false,
         devel: false,
         beta: false,
@@ -88,7 +89,7 @@ async function windows() {
   return plats.flat();
 }
 
-async function linux() {
+async function linux(minSupported) {
   const response = await fetch(
     "https://salsa.debian.org/postgresql/apt.postgresql.org/-/raw/master/pgapt.conf",
   );
@@ -161,6 +162,7 @@ async function linux() {
         arch: arch,
         runner: ARCH.linux[arch],
         postgres: v,
+        unsupported: v < minSupported,
         deprecated: false,
         devel: v == dev,
         beta: v == beta,
@@ -176,6 +178,7 @@ async function linux() {
         arch: arch,
         runner: ARCH.linux[arch],
         postgres: v,
+        unsupported: v < minSupported,
         deprecated: true,
         devel: v == false,
         beta: v == false,
@@ -186,6 +189,56 @@ async function linux() {
   return plats.flat();
 }
 
-Promise.all([linux(), macOS(), windows()]).then((values) =>
+/// Returns the minimum Postgres version supported by the community. Read from
+/// the [versioning page], and depending on the simple parsing of its HTML.
+///
+/// [versioning page]: https://www.postgresql.org/support/versioning/
+async function minSupported() {
+  const response = await fetch(
+    "https://www.postgresql.org/support/versioning/",
+  );
+
+  // Regular expressions to match lines of interest from versions page.
+  const HEADER_REGEX = /<h2>Releases<\/h2>/;
+  const BODY_REGEX = /<tbody>/;
+  const VERSION_REGEX = /<td>(\d+)<\/td>/;
+  const SUPPORTED_REGEX = /<td>(Yes|No)<\/td>/;
+  let supported = [];
+
+  const data = await response.text();
+  let inTable = false;
+  let inBody = false;
+  for (const line of data.split("\n")) {
+    if (inTable) {
+      // We've reached the Releases table.
+      if (inBody) {
+        // We've reached the body of the Releases table.
+        let matches = [];
+        if ((matches = VERSION_REGEX.exec(line)) !== null) {
+          // Found a version cell.
+          supported.push(Number(matches[1]));
+        } else if ((matches = SUPPORTED_REGEX.exec(line)) !== null) {
+          // Found a supported cell.
+          if (matches[1] === "No") {
+            // This version not supported, so previous is the last supported.
+            // Pop this one off the list and stop.
+            supported.pop();
+            break;
+          }
+        }
+        continue;
+      }
+      inBody = BODY_REGEX.test(line);
+      continue;
+    }
+    inTable = HEADER_REGEX.test(line);
+  }
+
+  // The last version is the minimum supported version.
+  return Number(supported.pop());
+}
+
+const min = await minSupported();
+Promise.all([linux(min), macOS(min), windows(min)]).then((values) =>
   console.log(JSON.stringify(values.flat(), null, "  ")),
 );
