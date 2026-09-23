@@ -1,0 +1,55 @@
+name: Generate Postgres Matrix
+author: "David E. Wheeler <david@justatheory.com>"
+branding:
+  icon: target
+  color: red
+description: Generate a complete list of OSes, architectures, and Postgres versions.
+inputs:
+  min-version:
+    description: Minimum Postgres major version to include
+    required: false
+  max-version:
+    description: Maximum Postgres major version to include
+    required: false
+  beta:
+    description: Include the Postgres beta release when available
+    required: false
+  devel:
+    description: Include the Postgres development version when available
+    required: false
+  supported:
+    description: Include only Postgres versions currently supported by Postgres project
+    required: false
+  deprecated:
+    description: Include Postgres versions deprecated by the OS packager (Apt, Homebrew, Chocolatey)
+    required: false
+  exclude-os:
+    description: Exclude space-delimited ma of OSes
+    required: false
+  exclude-arch:
+    description: Exclude space-delimited list of architectures
+    required: false
+  exclude-platform:
+    description: Exclude space-delimited list of `os/architecture` platform combinations
+    required: false
+outputs:
+  matrix:
+    description: Matrix Postgres platforms and versions
+    value: ${{ steps.matrix.outputs.matrix }}
+runs:
+  using: composite
+  steps:
+    - id: matrix
+      run: set -ex; printf 'matrix=%s\n' "$(node "$GITHUB_ACTION_PATH/platforms.js")" >> $GITHUB_OUTPUT
+      shell: bash
+      env:
+        MATRIX_PLATFORMS_FILE: ${{ github.action_path }}/platforms.json
+        MATRIX_MIN_VERSION: ${{ inputs.min-version }}
+        MATRIX_MAX_VERSION: ${{ inputs.max-version }}
+        MATRIX_BETA: ${{ inputs.beta }}
+        MATRIX_DEVELOPMENT: ${{ inputs.devel }}
+        MATRIX_SUPPORTED: ${{ inputs.supported }}
+        MATRIX_DEPRECATED: ${{ inputs.deprecated }}
+        MATRIX_EXCLUDE_OS: ${{ inputs.exclude-os }}
+        MATRIX_EXCLUDE_ARCH: ${{ inputs.exclude-arch }}
+        MATRIX_EXCLUDE_PLATFORM: ${{ inputs.exclude-platform }}
