@@ -1,0 +1,26 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: trailing-whitespace
+        name: Lint trailing whitespace
+        exclude_types: [image]
+      - id: end-of-file-fixer
+        name: Lint end-of-file newline
+        exclude_types: [image]
+      - id: check-added-large-files
+        name: Don't permit large files
+        exclude_types: [image]
+      - id: check-json
+        name: Verify JSON Syntax
+      - id: check-merge-conflict
+        name: Check for merge conflicts
+
+  - repo: local
+    hooks:
+      - id: platforms.json
+        name: Platforms up-to-date
+        language: system
+        entry: make platforms
+        files: platforms[.]json
+        pass_filenames: false

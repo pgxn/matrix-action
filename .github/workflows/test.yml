@@ -11,8 +11,23 @@ jobs:
     steps:
       - name: Check out the repo
         uses: actions/checkout@v7
+      - name: Setup node
+        uses: actions/setup-node@v7
+        with: { node-version: latest }
+      - name: Run Tests
+        run: make test
       - name: Generate Matrix
         id: matrix
         uses: ./
       - name: Show Result
         run: echo '${{ steps.matrix.outputs.matrix }}'
+  lint:
+    name: 🧽 Lint Project
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v7
+      - name: Install Pre-commit
+        run: make debian-install-lint
+      - name: Lint Project
+        run: make lint
