@@ -1,0 +1,38 @@
+name: 💥 Refresh
+on:
+  schedule:
+    - cron:  '5 11 * * *' # Daily @ 11:05 UTC
+permissions:
+  contents: write
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v7
+      - name: Setup node
+        uses: actions/setup-node@v7
+        with: { node-version: latest }
+      - name: Update platforms.json
+        run: make platforms
+      - name: Check for changes
+        id: changes
+        run: |
+          if git diff --quiet; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+          else
+            echo "changed=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Commit and push changes
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          set -e
+          git config --global user.name matrix-action Workflow
+          git config --global user.email pgxn-admins@googlegroups.com
+          git add platforms.json
+          git commit -m 'Update platforms'
+          git tag -f v0 -m 'Tag v0'
+          git push --follow-tags
+        env:
+          GITHUB_TOKEN: ${{ secrets.INTEGRATIONS_ROBOT_TOKEN }}
