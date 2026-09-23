@@ -5,6 +5,7 @@
     "arch": "arm64",
     "runner": "ubuntu-24.04-arm",
     "postgres": 20,
+    "unsupported": false,
     "deprecated": false,
     "devel": true,
     "beta": false
@@ -15,6 +16,7 @@
     "arch": "amd64",
     "runner": "ubuntu-latest",
     "postgres": 20,
+    "unsupported": false,
     "deprecated": false,
     "devel": true,
     "beta": false
@@ -25,6 +27,7 @@
     "arch": "arm64",
     "runner": "ubuntu-24.04-arm",
     "postgres": 19,
+    "unsupported": false,
     "deprecated": false,
     "devel": false,
     "beta": true
@@ -35,6 +38,7 @@
     "arch": "amd64",
     "runner": "ubuntu-latest",
     "postgres": 19,
+    "unsupported": false,
     "deprecated": false,
     "devel": false,
     "beta": true
@@ -45,6 +49,7 @@
     "arch": "arm64",
     "runner": "ubuntu-24.04-arm",
     "postgres": 18,
+    "unsupported": false,
     "deprecated": false,
     "devel": false,
     "beta": false
@@ -55,6 +60,7 @@
     "arch": "amd64",
     "runner": "ubuntu-latest",
     "postgres": 18,
+    "unsupported": false,
     "deprecated": false,
     "devel": false,
     "beta": false
@@ -65,6 +71,7 @@
     "arch": "arm64",
     "runner": "ubuntu-24.04-arm",
     "postgres": 17,
+    "unsupported": false,
     "deprecated": false,
     "devel": false,
     "beta": false
@@ -75,6 +82,7 @@
     "arch": "amd64",
     "runner": "ubuntu-latest",
     "postgres": 17,
+    "unsupported": false,
     "deprecated": false,
     "devel": false,
     "beta": false
@@ -85,6 +93,7 @@
     "arch": "arm64",
     "runner": "ubuntu-24.04-arm",
     "postgres": 16,
+    "unsupported": false,
     "deprecated": false,
     "devel": false,
     "beta": false
@@ -95,6 +104,7 @@
     "arch": "amd64",
     "runner": "ubuntu-latest",
     "postgres": 16,
+    "unsupported": false,
     "deprecated": false,
     "devel": false,
     "beta": false
@@ -105,6 +115,7 @@
     "arch": "arm64",
     "runner": "ubuntu-24.04-arm",
     "postgres": 15,
+    "unsupported": false,
     "deprecated": false,
     "devel": false,
     "beta": false
@@ -115,6 +126,7 @@
     "arch": "amd64",
     "runner": "ubuntu-latest",
     "postgres": 15,
+    "unsupported": false,
     "deprecated": false,
     "devel": false,
     "beta": false
@@ -125,6 +137,7 @@
     "arch": "arm64",
     "runner": "ubuntu-24.04-arm",
     "postgres": 14,
+    "unsupported": false,
     "deprecated": false,
     "devel": false,
     "beta": false
@@ -135,6 +148,7 @@
     "arch": "amd64",
     "runner": "ubuntu-latest",
     "postgres": 14,
+    "unsupported": false,
     "deprecated": false,
     "devel": false,
     "beta": false
@@ -145,6 +159,7 @@
     "arch": "arm64",
     "runner": "ubuntu-24.04-arm",
     "postgres": 13,
+    "unsupported": true,
     "deprecated": false,
     "devel": false,
     "beta": false
@@ -155,6 +170,7 @@
     "arch": "amd64",
     "runner": "ubuntu-latest",
     "postgres": 13,
+    "unsupported": true,
     "deprecated": false,
     "devel": false,
     "beta": false
@@ -165,6 +181,7 @@
     "arch": "arm64",
     "runner": "ubuntu-24.04-arm",
     "postgres": 12,
+    "unsupported": true,
     "deprecated": false,
     "devel": false,
     "beta": false
@@ -175,6 +192,7 @@
     "arch": "amd64",
     "runner": "ubuntu-latest",
     "postgres": 12,
+    "unsupported": true,
     "deprecated": false,
     "devel": false,
     "beta": false
@@ -185,6 +203,7 @@
     "arch": "arm64",
     "runner": "ubuntu-24.04-arm",
     "postgres": 11,
+    "unsupported": true,
     "deprecated": false,
     "devel": false,
     "beta": false
@@ -195,6 +214,7 @@
     "arch": "amd64",
     "runner": "ubuntu-latest",
     "postgres": 11,
+    "unsupported": true,
     "deprecated": false,
     "devel": false,
     "beta": false
@@ -205,6 +225,7 @@
     "arch": "arm64",
     "runner": "ubuntu-24.04-arm",
     "postgres": 10,
+    "unsupported": true,
     "deprecated": false,
     "devel": false,
     "beta": false
@@ -215,6 +236,7 @@
     "arch": "amd64",
     "runner": "ubuntu-latest",
     "postgres": 10,
+    "unsupported": true,
     "deprecated": false,
     "devel": false,
     "beta": false
@@ -225,6 +247,7 @@
     "arch": "arm64",
     "runner": "ubuntu-24.04-arm",
     "postgres": 9.6,
+    "unsupported": true,
     "deprecated": true,
     "devel": false,
     "beta": false
@@ -235,6 +258,7 @@
     "arch": "amd64",
     "runner": "ubuntu-latest",
     "postgres": 9.6,
+    "unsupported": true,
     "deprecated": true,
     "devel": false,
     "beta": false
@@ -245,6 +269,7 @@
     "arch": "arm64",
     "runner": "ubuntu-24.04-arm",
     "postgres": 9.5,
+    "unsupported": true,
     "deprecated": true,
     "devel": false,
     "beta": false
@@ -255,6 +280,7 @@
     "arch": "amd64",
     "runner": "ubuntu-latest",
     "postgres": 9.5,
+    "unsupported": true,
     "deprecated": true,
     "devel": false,
     "beta": false
@@ -265,6 +291,7 @@
     "arch": "arm64",
     "runner": "ubuntu-24.04-arm",
     "postgres": 9.4,
+    "unsupported": true,
     "deprecated": true,
     "devel": false,
     "beta": false
@@ -275,6 +302,7 @@
     "arch": "amd64",
     "runner": "ubuntu-latest",
     "postgres": 9.4,
+    "unsupported": true,
     "deprecated": true,
     "devel": false,
     "beta": false
@@ -285,6 +313,7 @@
     "arch": "arm64",
     "runner": "ubuntu-24.04-arm",
     "postgres": 9.3,
+    "unsupported": true,
     "deprecated": true,
     "devel": false,
     "beta": false
@@ -295,6 +324,7 @@
     "arch": "amd64",
     "runner": "ubuntu-latest",
     "postgres": 9.3,
+    "unsupported": true,
     "deprecated": true,
     "devel": false,
     "beta": false
@@ -305,6 +335,7 @@
     "arch": "arm64",
     "runner": "ubuntu-24.04-arm",
     "postgres": 9.2,
+    "unsupported": true,
     "deprecated": true,
     "devel": false,
     "beta": false
@@ -315,6 +346,7 @@
     "arch": "amd64",
     "runner": "ubuntu-latest",
     "postgres": 9.2,
+    "unsupported": true,
     "deprecated": true,
     "devel": false,
     "beta": false
@@ -325,6 +357,7 @@
     "arch": "arm64",
     "runner": "ubuntu-24.04-arm",
     "postgres": 9.1,
+    "unsupported": true,
     "deprecated": true,
     "devel": false,
     "beta": false
@@ -335,6 +368,7 @@
     "arch": "amd64",
     "runner": "ubuntu-latest",
     "postgres": 9.1,
+    "unsupported": true,
     "deprecated": true,
     "devel": false,
     "beta": false
@@ -345,6 +379,7 @@
     "arch": "arm64",
     "runner": "ubuntu-24.04-arm",
     "postgres": 9,
+    "unsupported": true,
     "deprecated": true,
     "devel": false,
     "beta": false
@@ -355,6 +390,7 @@
     "arch": "amd64",
     "runner": "ubuntu-latest",
     "postgres": 9,
+    "unsupported": true,
     "deprecated": true,
     "devel": false,
     "beta": false
@@ -365,6 +401,7 @@
     "arch": "arm64",
     "runner": "ubuntu-24.04-arm",
     "postgres": 8.4,
+    "unsupported": true,
     "deprecated": true,
     "devel": false,
     "beta": false
@@ -375,6 +412,7 @@
     "arch": "amd64",
     "runner": "ubuntu-latest",
     "postgres": 8.4,
+    "unsupported": true,
     "deprecated": true,
     "devel": false,
     "beta": false
@@ -385,6 +423,7 @@
     "arch": "arm64",
     "runner": "ubuntu-24.04-arm",
     "postgres": 8.3,
+    "unsupported": true,
     "deprecated": true,
     "devel": false,
     "beta": false
@@ -395,6 +434,7 @@
     "arch": "amd64",
     "runner": "ubuntu-latest",
     "postgres": 8.3,
+    "unsupported": true,
     "deprecated": true,
     "devel": false,
     "beta": false
@@ -405,6 +445,7 @@
     "arch": "arm64",
     "runner": "ubuntu-24.04-arm",
     "postgres": 8.2,
+    "unsupported": true,
     "deprecated": true,
     "devel": false,
     "beta": false
@@ -415,6 +456,7 @@
     "arch": "amd64",
     "runner": "ubuntu-latest",
     "postgres": 8.2,
+    "unsupported": true,
     "deprecated": true,
     "devel": false,
     "beta": false
@@ -425,6 +467,7 @@
     "arch": "arm64",
     "runner": "macos-latest",
     "postgres": 18,
+    "unsupported": false,
     "deprecated": false,
     "devel": false,
     "beta": false
@@ -435,6 +478,7 @@
     "arch": "arm64",
     "runner": "macos-latest",
     "postgres": 17,
+    "unsupported": false,
     "deprecated": false,
     "devel": false,
     "beta": false
@@ -445,6 +489,7 @@
     "arch": "arm64",
     "runner": "macos-latest",
     "postgres": 16,
+    "unsupported": false,
     "deprecated": false,
     "devel": false,
     "beta": false
@@ -455,6 +500,7 @@
     "arch": "arm64",
     "runner": "macos-latest",
     "postgres": 15,
+    "unsupported": false,
     "deprecated": false,
     "devel": false,
     "beta": false
@@ -465,6 +511,7 @@
     "arch": "arm64",
     "runner": "macos-latest",
     "postgres": 14,
+    "unsupported": false,
     "deprecated": true,
     "devel": false,
     "beta": false
@@ -475,6 +522,7 @@
     "arch": "arm64",
     "runner": "windows-11-arm",
     "postgres": 9.4,
+    "unsupported": true,
     "deprecated": false,
     "devel": false,
     "beta": false
@@ -485,6 +533,7 @@
     "arch": "amd64",
     "runner": "windows-latest",
     "postgres": 9.4,
+    "unsupported": true,
     "deprecated": false,
     "devel": false,
     "beta": false
@@ -495,6 +544,7 @@
     "arch": "arm64",
     "runner": "windows-11-arm",
     "postgres": 9.5,
+    "unsupported": true,
     "deprecated": false,
     "devel": false,
     "beta": false
@@ -505,6 +555,7 @@
     "arch": "amd64",
     "runner": "windows-latest",
     "postgres": 9.5,
+    "unsupported": true,
     "deprecated": false,
     "devel": false,
     "beta": false
@@ -515,6 +566,7 @@
     "arch": "arm64",
     "runner": "windows-11-arm",
     "postgres": 9.6,
+    "unsupported": true,
     "deprecated": false,
     "devel": false,
     "beta": false
@@ -525,6 +577,7 @@
     "arch": "amd64",
     "runner": "windows-latest",
     "postgres": 9.6,
+    "unsupported": true,
     "deprecated": false,
     "devel": false,
     "beta": false
@@ -535,6 +588,7 @@
     "arch": "arm64",
     "runner": "windows-11-arm",
     "postgres": 10,
+    "unsupported": true,
     "deprecated": false,
     "devel": false,
     "beta": false
@@ -545,6 +599,7 @@
     "arch": "amd64",
     "runner": "windows-latest",
     "postgres": 10,
+    "unsupported": true,
     "deprecated": false,
     "devel": false,
     "beta": false
@@ -555,6 +610,7 @@
     "arch": "arm64",
     "runner": "windows-11-arm",
     "postgres": 11,
+    "unsupported": true,
     "deprecated": false,
     "devel": false,
     "beta": false
@@ -565,6 +621,7 @@
     "arch": "amd64",
     "runner": "windows-latest",
     "postgres": 11,
+    "unsupported": true,
     "deprecated": false,
     "devel": false,
     "beta": false
@@ -575,6 +632,7 @@
     "arch": "arm64",
     "runner": "windows-11-arm",
     "postgres": 12,
+    "unsupported": true,
     "deprecated": false,
     "devel": false,
     "beta": false
@@ -585,6 +643,7 @@
     "arch": "amd64",
     "runner": "windows-latest",
     "postgres": 12,
+    "unsupported": true,
     "deprecated": false,
     "devel": false,
     "beta": false
@@ -595,6 +654,7 @@
     "arch": "arm64",
     "runner": "windows-11-arm",
     "postgres": 13,
+    "unsupported": true,
     "deprecated": false,
     "devel": false,
     "beta": false
@@ -605,6 +665,7 @@
     "arch": "amd64",
     "runner": "windows-latest",
     "postgres": 13,
+    "unsupported": true,
     "deprecated": false,
     "devel": false,
     "beta": false
@@ -615,6 +676,7 @@
     "arch": "arm64",
     "runner": "windows-11-arm",
     "postgres": 14,
+    "unsupported": false,
     "deprecated": false,
     "devel": false,
     "beta": false
@@ -625,6 +687,7 @@
     "arch": "amd64",
     "runner": "windows-latest",
     "postgres": 14,
+    "unsupported": false,
     "deprecated": false,
     "devel": false,
     "beta": false
@@ -635,6 +698,7 @@
     "arch": "arm64",
     "runner": "windows-11-arm",
     "postgres": 15,
+    "unsupported": false,
     "deprecated": false,
     "devel": false,
     "beta": false
@@ -645,6 +709,7 @@
     "arch": "amd64",
     "runner": "windows-latest",
     "postgres": 15,
+    "unsupported": false,
     "deprecated": false,
     "devel": false,
     "beta": false
@@ -655,6 +720,7 @@
     "arch": "arm64",
     "runner": "windows-11-arm",
     "postgres": 9.3,
+    "unsupported": true,
     "deprecated": false,
     "devel": false,
     "beta": false
@@ -665,6 +731,7 @@
     "arch": "amd64",
     "runner": "windows-latest",
     "postgres": 9.3,
+    "unsupported": true,
     "deprecated": false,
     "devel": false,
     "beta": false
@@ -675,6 +742,7 @@
     "arch": "arm64",
     "runner": "windows-11-arm",
     "postgres": 16,
+    "unsupported": false,
     "deprecated": false,
     "devel": false,
     "beta": false
@@ -685,6 +753,7 @@
     "arch": "amd64",
     "runner": "windows-latest",
     "postgres": 16,
+    "unsupported": false,
     "deprecated": false,
     "devel": false,
     "beta": false
@@ -695,6 +764,7 @@
     "arch": "arm64",
     "runner": "windows-11-arm",
     "postgres": 17,
+    "unsupported": false,
     "deprecated": false,
     "devel": false,
     "beta": false
@@ -705,6 +775,7 @@
     "arch": "amd64",
     "runner": "windows-latest",
     "postgres": 17,
+    "unsupported": false,
     "deprecated": false,
     "devel": false,
     "beta": false
@@ -715,6 +786,7 @@
     "arch": "arm64",
     "runner": "windows-11-arm",
     "postgres": 18,
+    "unsupported": false,
     "deprecated": false,
     "devel": false,
     "beta": false
@@ -725,6 +797,7 @@
     "arch": "amd64",
     "runner": "windows-latest",
     "postgres": 18,
+    "unsupported": false,
     "deprecated": false,
     "devel": false,
     "beta": false

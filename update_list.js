@@ -189,53 +189,15 @@ async function linux(minSupported) {
   return plats.flat();
 }
 
-/// Returns the minimum Postgres version supported by the community. Read from
-/// the [versioning page], and depending on the simple parsing of its HTML.
+/// Returns the minimum Postgres version supported by the community, defined
+/// by [versions.json]
 ///
-/// [versioning page]: https://www.postgresql.org/support/versioning/
+/// [versions.json]: https://www.postgresql.org/versions.json
 async function minSupported() {
-  const response = await fetch(
-    "https://www.postgresql.org/support/versioning/",
-  );
-
-  // Regular expressions to match lines of interest from versions page.
-  const HEADER_REGEX = /<h2>Releases<\/h2>/;
-  const BODY_REGEX = /<tbody>/;
-  const VERSION_REGEX = /<td>(\d+)<\/td>/;
-  const SUPPORTED_REGEX = /<td>(Yes|No)<\/td>/;
-  let supported = [];
-
-  const data = await response.text();
-  let inTable = false;
-  let inBody = false;
-  for (const line of data.split("\n")) {
-    if (inTable) {
-      // We've reached the Releases table.
-      if (inBody) {
-        // We've reached the body of the Releases table.
-        let matches = [];
-        if ((matches = VERSION_REGEX.exec(line)) !== null) {
-          // Found a version cell.
-          supported.push(Number(matches[1]));
-        } else if ((matches = SUPPORTED_REGEX.exec(line)) !== null) {
-          // Found a supported cell.
-          if (matches[1] === "No") {
-            // This version not supported, so previous is the last supported.
-            // Pop this one off the list and stop.
-            supported.pop();
-            break;
-          }
-        }
-        continue;
-      }
-      inBody = BODY_REGEX.test(line);
-      continue;
-    }
-    inTable = HEADER_REGEX.test(line);
-  }
-
-  // The last version is the minimum supported version.
-  return Number(supported.pop());
+  const response = await fetch("https://www.postgresql.org/versions.json");
+  const versions = await response.json();
+  versions.sort((a, b) => Number(a.major) - Number(b.major));
+  return Number(versions.find((e) => e.supported).major);
 }
 
 const min = await minSupported();
