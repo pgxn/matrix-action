@@ -17,9 +17,9 @@ import("../platforms.js").then((mod) => {
   delete process.env.MATRIX_BETA;
   delete process.env.MATRIX_DEPRECATED;
   delete process.env.MATRIX_SUPPORTED;
-  delete process.env.MATRIX_EXCLUDE_OS;
-  delete process.env.MATRIX_EXCLUDE_ARCH;
-  delete process.env.MATRIX_EXCLUDE_PLATFORM;
+  delete process.env.MATRIX_NO_OS;
+  delete process.env.MATRIX_NO_ARCH;
+  delete process.env.MATRIX_NO_PLATFORM;
 
   // Tests with environment variables must be synchronous.
   test("default params", (t) => {
@@ -46,9 +46,9 @@ import("../platforms.js").then((mod) => {
     process.env.MATRIX_BETA = 1;
     process.env.MATRIX_SUPPORTED = "t";
     process.env.MATRIX_DEPRECATED = 1;
-    process.env.MATRIX_EXCLUDE_OS = "macos,windows";
-    process.env.MATRIX_EXCLUDE_ARCH = "amd64";
-    process.env.MATRIX_EXCLUDE_PLATFORM = "windows/arm64";
+    process.env.MATRIX_NO_OS = "macos,windows";
+    process.env.MATRIX_NO_ARCH = "amd64";
+    process.env.MATRIX_NO_PLATFORM = "windows/arm64";
     assert.deepStrictEqual(mod.params(), {
       file: "foo.json",
       min: 9.5,
@@ -71,9 +71,9 @@ import("../platforms.js").then((mod) => {
     process.env.MATRIX_BETA = "f";
     process.env.MATRIX_SUPPORTED = "f";
     process.env.MATRIX_DEPRECATED = "0";
-    process.env.MATRIX_EXCLUDE_OS = "true";
-    process.env.MATRIX_EXCLUDE_ARCH = "hi";
-    process.env.MATRIX_EXCLUDE_PLATFORM = "sleep";
+    process.env.MATRIX_NO_OS = "true";
+    process.env.MATRIX_NO_ARCH = "hi";
+    process.env.MATRIX_NO_PLATFORM = "sleep";
     assert.deepStrictEqual(mod.params(), {
       file: "valid.ok",
       min: 0,

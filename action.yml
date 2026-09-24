@@ -23,13 +23,13 @@ inputs:
   deprecated:
     description: Include Postgres versions deprecated by the OS packager (Apt, Homebrew, Chocolatey)
     required: false
-  exclude-os:
-    description: Exclude space-delimited ma of OSes
+  no-os:
+    description: Exclude space-delimited list of OSes
     required: false
-  exclude-arch:
+  no-arch:
     description: Exclude space-delimited list of architectures
     required: false
-  exclude-platform:
+  no-platform:
     description: Exclude space-delimited list of `os/architecture` platform combinations
     required: false
 outputs:
@@ -50,6 +50,6 @@ runs:
         MATRIX_DEVELOPMENT: ${{ inputs.devel }}
         MATRIX_SUPPORTED: ${{ inputs.supported }}
         MATRIX_DEPRECATED: ${{ inputs.deprecated }}
-        MATRIX_EXCLUDE_OS: ${{ inputs.exclude-os }}
-        MATRIX_EXCLUDE_ARCH: ${{ inputs.exclude-arch }}
-        MATRIX_EXCLUDE_PLATFORM: ${{ inputs.exclude-platform }}
+        MATRIX_NO_OS: ${{ inputs.no-os }}
+        MATRIX_NO_ARCH: ${{ inputs.no-arch }}
+        MATRIX_NO_PLATFORM: ${{ inputs.no-platform }}

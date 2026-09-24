@@ -17,7 +17,6 @@ async function getFormula(name) {
   );
   return await response.json();
 }
-
 /// Construct platform records for macOS from a Homebrew Formula. Returns an
 /// empty array for a disabled formula.
 function newMac(formula, minSupported) {

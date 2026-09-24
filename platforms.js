@@ -34,9 +34,9 @@ export function params() {
     beta: bool(process.env.MATRIX_BETA),
     supp: bool(process.env.MATRIX_SUPPORTED),
     old: bool(process.env.MATRIX_DEPRECATED),
-    oses: process.env.MATRIX_EXCLUDE_OS,
-    arches: process.env.MATRIX_EXCLUDE_ARCH,
-    plats: process.env.MATRIX_EXCLUDE_PLATFORM,
+    oses: process.env.MATRIX_NO_OS,
+    arches: process.env.MATRIX_NO_ARCH,
+    plats: process.env.MATRIX_NO_PLATFORM,
   };
 }
 
