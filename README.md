@@ -29,12 +29,12 @@ jobs:
           beta: true
 
   test:
-    name: ${{ matrix.cfg.emoji }} ${{ matrix.cfg.os }}/${{ matrix.cfg.arch }} 🐘 v${{ matrix.cfg.postgres }}
+    name: ${{ matrix.pg.emoji }} ${{ matrix.pg.os }}/${{ matrix.pg.arch }} 🐘 v${{ matrix.pg.version }}
     needs: matrix
-    runs-on: ${{ matrix.cfg.runner }}
+    runs-on: ${{ matrix.pg.runner }}
     strategy:
       matrix:
-        cfg: ${{ fromJson(needs.matrix.outputs.matrix) }}
+        pg: ${{ fromJson(needs.matrix.outputs.matrix) }}
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -56,7 +56,7 @@ releases. The `outputs` section maps the action output to the job output named
 on any runner that supports Node.
 
 The second job, `test`, depends on the `matrix` job, and parses its output
-into the `cfg` matrix value. With the matrix set, it customizes the job name
+into the `pg` matrix value. With the matrix set, it customizes the job name
 and GitHub runner and sets the version of Postgres for [pgxn/postgres-action]
 to configure and start. The remaining steps carry out the usual Postgres
 extension `make && make install && make installcheck` steps.
@@ -91,7 +91,7 @@ following keys:
 | ------------- | ------- |--------------------------------------------------------------------- |
 | `os`          | string  | The OS name: `linux`, `macos`, or `windows`                          |
 | `arch`        | string  | The architecture name: `amd64` or `arm64`                            |
-| `postgres`    | number  | Postgres major version number                                        |
+| `version`     | number  | Postgres major version number                                        |
 | `runner`      | string  | A likely GitHub runner                                               |
 | `emoji`       | string  | A single emoji relevant to the OS name                               |
 | `unsupported` | boolean | True if the major version is not a [supported Postgres version][pgv] |
@@ -107,7 +107,7 @@ Example:
   "os": "linux",
   "arch": "arm64",
   "runner": "ubuntu-24.04-arm",
-  "postgres": 20,
+  "version": 20,
   "unsupported": false,
   "deprecated": false,
   "devel": true,

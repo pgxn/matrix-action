@@ -95,7 +95,7 @@ import("../platforms.js").then((mod) => {
         os: "linux",
         arch: "arm64",
         runner: "ubuntu-24.04-arm",
-        postgres: 18,
+        version: 18,
         deprecated: false,
         devel: false,
         beta: false,
@@ -110,11 +110,11 @@ import("../platforms.js").then((mod) => {
   });
 
   test("platform versions", async (t) => {
-    const v9 = { os: "linux", postgres: 9.4 };
-    const v16 = { os: "linux", postgres: 16 };
-    const v17 = { os: "linux", postgres: 17 };
-    const v18 = { os: "linux", postgres: 18 };
-    const v19 = { os: "linux", postgres: 19 };
+    const v9 = { os: "linux", version: 9.4 };
+    const v16 = { os: "linux", version: 16 };
+    const v17 = { os: "linux", version: 17 };
+    const v18 = { os: "linux", version: 18 };
+    const v19 = { os: "linux", version: 19 };
     let versions = [v9, v16, v17, v18, v19];
 
     // Write out platforms file.
@@ -161,11 +161,11 @@ import("../platforms.js").then((mod) => {
   });
 
   test("devel, beta, supported, deprecated", async (t) => {
-    const devel = { os: "linux", postgres: 20, devel: true };
-    const beta = { os: "linux", postgres: 19, beta: true };
-    const ok = { os: "linux", postgres: 18 };
-    const unsup = { os: "linux", postgres: 13, unsupported: true };
-    const old = { os: "linux", postgres: 12, deprecated: true };
+    const devel = { os: "linux", version: 20, devel: true };
+    const beta = { os: "linux", version: 19, beta: true };
+    const ok = { os: "linux", version: 18 };
+    const unsup = { os: "linux", version: 13, unsupported: true };
+    const old = { os: "linux", version: 12, deprecated: true };
 
     // Write out platforms file.
     await using tmpDir = await fs.mkdtempDisposable(
@@ -235,12 +235,12 @@ import("../platforms.js").then((mod) => {
   });
 
   test("platforms", async (t) => {
-    const macosArm = { os: "macos", arch: "arm64", postgres: 18 };
-    const macosAmd = { os: "macos", arch: "amd64", postgres: 18 };
-    const linuxArm = { os: "linux", arch: "arm64", postgres: 18 };
-    const linuxAmd = { os: "linux", arch: "amd64", postgres: 18 };
-    const windowsArm = { os: "windows", arch: "arm64", postgres: 18 };
-    const windowsAmd = { os: "windows", arch: "amd64", postgres: 18 };
+    const macosArm = { os: "macos", arch: "arm64", version: 18 };
+    const macosAmd = { os: "macos", arch: "amd64", version: 18 };
+    const linuxArm = { os: "linux", arch: "arm64", version: 18 };
+    const linuxAmd = { os: "linux", arch: "amd64", version: 18 };
+    const windowsArm = { os: "windows", arch: "arm64", version: 18 };
+    const windowsAmd = { os: "windows", arch: "amd64", version: 18 };
     const plats = [
       macosArm,
       macosAmd,

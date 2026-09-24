@@ -5,7 +5,7 @@ export async function listPlatforms(p) {
 
   var plats = [];
   for (const cfg of list) {
-    if (cfg.postgres > p.max || cfg.postgres < p.min) continue;
+    if (cfg.version > p.max || cfg.version < p.min) continue;
     if (cfg.devel && !p.dev) continue;
     if (cfg.beta && !p.beta) continue;
     if (cfg.deprecated && !p.old) continue;
