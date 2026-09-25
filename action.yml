@@ -1,4 +1,4 @@
-name: Generate Postgres Matrix
+name: PGXN Matrix Action
 author: "David E. Wheeler <david@justatheory.com>"
 branding:
   icon: target
