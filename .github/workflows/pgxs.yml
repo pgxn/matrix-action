@@ -1,0 +1,73 @@
+name: 🐘 Test PGXS
+on:
+  push:
+defaults:
+  run: { shell: bash }
+jobs:
+  matrix:
+    name: 📋 Generate Matrix
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.matrix.outputs.matrix }}
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v7
+      - name: Generate Matrix
+        id: matrix
+        uses: ./
+        with:
+          deprecated: true
+          beta: true
+          devel: true
+
+  test:
+    name: ${{ matrix.pg.emoji }} ${{ matrix.pg.os }}/${{ matrix.pg.arch }} 🐘 v${{ matrix.pg.version }}
+    needs: matrix
+    runs-on: ${{ matrix.pg.runner }}
+    strategy:
+      fail-fast: false
+      matrix:
+        pg: ${{ fromJson(needs.matrix.outputs.matrix) }}
+        exclude:
+          # make doesn't work on Postgres 16 and earlier for the EDB Windows
+          # Postgres  binaries installed by Chocolatey. `import $(PGXS)` fails
+          # because the path returned by `pg_config --pgxs` is a long Windows
+          # path with a space in it; 17+ uses short paths without spaces.
+          - { pg: { os: Windows, version: 16 } }
+          - { pg: { os: Windows, version: 15 } }
+          - { pg: { os: Windows, version: 14 } }
+          - { pg: { os: Windows, version: 13 } }
+          - { pg: { os: Windows, version: 12 } }
+          - { pg: { os: Windows, version: 11 } }
+          - { pg: { os: Windows, version: 10 } }
+          - { pg: { os: Windows, version: 9.6 } }
+          - { pg: { os: Windows, version: 9.5 } }
+          - { pg: { os: Windows, version: 9.4 } }
+          - { pg: { os: Windows, version: 9.3 } }
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v7
+      - name: Start Postgres ${{ matrix.pg.version }}
+        uses: pgxn/postgres-action@v0
+        with: { version: "${{ matrix.pg.version }}" }
+      - name: Build
+        working-directory: pgxs
+        run: make -j $(nproc)
+      - name: Install
+        working-directory: pgxs
+        run: sudo make install
+      - name: Test
+        id: test
+        working-directory: pgxs
+        run: make installcheck
+      - name: Show Diffs
+        if: failure() && steps.test.outcome == 'failure'
+        run: find . -name regression.diffs -exec cat {} +
+      - name: Upload Diffs
+        if: failure() && steps.test.outcome == 'failure'
+        uses: actions/upload-artifact@v7
+        with:
+          name: regression-diffs-${{ matrix.pg.os }}-${{ matrix.pg.arch }}-pg${{ matrix.pg.version }}
+          path: |
+            pgxs/regression.diffs
+            pgxs/results
