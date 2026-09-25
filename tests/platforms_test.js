@@ -353,4 +353,32 @@ import("../platforms.js").then((mod) => {
       [macosArm, macosAmd, linuxAmd, linuxArm, windowsAmd],
     );
   });
+
+  test("stringify older .0 releases", async (t) => {
+    const v200 = { os: "linux", version: 20 };
+    const v100 = { os: "linux", version: 10 };
+    const v096 = { os: "linux", version: 9.6 };
+    const v090 = { os: "linux", version: 9.0 };
+    const v083 = { os: "linux", version: 8.3 };
+    const v080 = { os: "linux", version: 8.0 };
+
+    const v090s = { os: "linux", version: "9.0" };
+    const v080s = { os: "linux", version: "8.0" };
+
+    // Write out platforms file.
+    await using tmpDir = await fs.mkdtempDisposable(
+      path.join(os.tmpdir(), "matrix-stringify-"),
+    );
+    const file = path.join(tmpDir.path, "stringified.json");
+    await fs.writeFile(
+      file,
+      JSON.stringify([v200, v100, v096, v090, v083, v080]),
+    );
+
+    // Should stringify .0 releases < 10.
+    assert.deepStrictEqual(
+      await mod.listPlatforms({ file: file, min: 0, oses: "macos" }),
+      [v200, v100, v096, v090s, v083, v080s],
+    );
+  });
 });

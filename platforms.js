@@ -14,6 +14,9 @@ export async function listPlatforms(p) {
     if (p.arches && new RegExp(`\\b${cfg.arch}\\b`).test(p.arches)) continue;
     if (p.plats && new RegExp(`\\b${cfg.os}/${cfg.arch}\\b`).test(p.plats))
       continue;
+    // Stringify 9.0, 8.0, etc.
+    if (cfg.version < 10 && Number.isInteger(cfg.version))
+      cfg.version = cfg.version.toFixed(1);
     plats.push(cfg);
   }
   return plats;

@@ -91,7 +91,7 @@ following keys:
 | ------------- | ------- |--------------------------------------------------------------------- |
 | `os`          | string  | The OS name: `linux`, `macos`, or `windows`                          |
 | `arch`        | string  | The architecture name: `amd64` or `arm64`                            |
-| `version`     | number  | Postgres major version number                                        |
+| `version`     | number  | Postgres major version number (string for .0 versions < 10)          |
 | `runner`      | string  | A likely GitHub runner                                               |
 | `emoji`       | string  | A single emoji relevant to the OS name                               |
 | `unsupported` | boolean | True if the major version is not a [supported Postgres version][pgv] |
