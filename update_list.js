@@ -170,8 +170,10 @@ async function linux(minSupported) {
   }
 
   for (const v of deprecated.reverse()) {
-    plats.push(
-      Object.keys(ARCH.linux).map((arch) => ({
+    for (const arch of Object.keys(ARCH.linux)) {
+      // No arm64 support prior to 9.1.
+      if (v < 9.1 && arch === "arm64") continue;
+      plats.push({
         emoji: "🐧",
         os: "linux",
         arch: arch,
@@ -181,8 +183,8 @@ async function linux(minSupported) {
         deprecated: true,
         devel: v == false,
         beta: v == false,
-      })),
-    );
+      });
+    }
   }
 
   return plats.flat();

@@ -376,31 +376,9 @@
   {
     "emoji": "🐧",
     "os": "linux",
-    "arch": "arm64",
-    "runner": "ubuntu-24.04-arm",
-    "version": 9,
-    "unsupported": true,
-    "deprecated": true,
-    "devel": false,
-    "beta": false
-  },
-  {
-    "emoji": "🐧",
-    "os": "linux",
     "arch": "amd64",
     "runner": "ubuntu-latest",
     "version": 9,
-    "unsupported": true,
-    "deprecated": true,
-    "devel": false,
-    "beta": false
-  },
-  {
-    "emoji": "🐧",
-    "os": "linux",
-    "arch": "arm64",
-    "runner": "ubuntu-24.04-arm",
-    "version": 8.4,
     "unsupported": true,
     "deprecated": true,
     "devel": false,
@@ -420,31 +398,9 @@
   {
     "emoji": "🐧",
     "os": "linux",
-    "arch": "arm64",
-    "runner": "ubuntu-24.04-arm",
-    "version": 8.3,
-    "unsupported": true,
-    "deprecated": true,
-    "devel": false,
-    "beta": false
-  },
-  {
-    "emoji": "🐧",
-    "os": "linux",
     "arch": "amd64",
     "runner": "ubuntu-latest",
     "version": 8.3,
-    "unsupported": true,
-    "deprecated": true,
-    "devel": false,
-    "beta": false
-  },
-  {
-    "emoji": "🐧",
-    "os": "linux",
-    "arch": "arm64",
-    "runner": "ubuntu-24.04-arm",
-    "version": 8.2,
     "unsupported": true,
     "deprecated": true,
     "devel": false,
