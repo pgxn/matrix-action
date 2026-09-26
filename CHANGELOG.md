@@ -7,6 +7,17 @@ All notable changes to this project will be documented in this file. It uses the
   [Semantic Versioning]: https://semver.org/spec/v2.0.0.html
     "Semantic Versioning 2.0.0"
 
+## [v0.1.1] — 2026-09-26
+
+The theme of this release is *Pasto.*
+
+### 🏗️ Build Setup
+
+*   Renamed the action on the Marketplace to "PGXN Matrix Action", as the
+    previous name was meant as a placeholder.
+
+  [v0.1.1]: https://github.com/pgxn/postgres-action/compare/v0.1.0...v0.1.1
+
 ## [v0.1.0] — 2026-09-25
 
 The theme of this release is *Comprehensiveness.*
