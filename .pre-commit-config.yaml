@@ -16,11 +16,11 @@ repos:
       - id: check-merge-conflict
         name: Check for merge conflicts
 
-  # - repo: local
-  #   hooks:
-  #     - id: platforms.json
-  #       name: Platforms up-to-date
-  #       language: system
-  #       entry: make platforms
-  #       files: platforms[.]json
-  #       pass_filenames: false
+  - repo: local
+    hooks:
+      - id: platforms.json
+        name: Platforms up-to-date
+        language: system
+        entry: make platforms
+        files: platforms[.]json
+        pass_filenames: false
