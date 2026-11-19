@@ -34,6 +34,7 @@ jobs:
           git add platforms.json
           git commit -m 'Update platforms'
           git tag -f v0 -m 'Tag v0'
+          git push
           git push -f --tags
         env:
           GITHUB_TOKEN: ${{ secrets.INTEGRATIONS_ROBOT_TOKEN }}
