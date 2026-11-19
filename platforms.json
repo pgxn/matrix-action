@@ -137,7 +137,7 @@
     "arch": "arm64",
     "runner": "ubuntu-24.04-arm",
     "version": 14,
-    "unsupported": false,
+    "unsupported": true,
     "deprecated": false,
     "devel": false,
     "beta": false
@@ -148,7 +148,7 @@
     "arch": "amd64",
     "runner": "ubuntu-latest",
     "version": 14,
-    "unsupported": false,
+    "unsupported": true,
     "deprecated": false,
     "devel": false,
     "beta": false
@@ -467,7 +467,7 @@
     "arch": "arm64",
     "runner": "macos-latest",
     "version": 14,
-    "unsupported": false,
+    "unsupported": true,
     "deprecated": true,
     "devel": false,
     "beta": false
@@ -632,7 +632,7 @@
     "arch": "arm64",
     "runner": "windows-11-arm",
     "version": 14,
-    "unsupported": false,
+    "unsupported": true,
     "deprecated": false,
     "devel": false,
     "beta": false
@@ -643,7 +643,7 @@
     "arch": "amd64",
     "runner": "windows-latest",
     "version": 14,
-    "unsupported": false,
+    "unsupported": true,
     "deprecated": false,
     "devel": false,
     "beta": false
@@ -753,6 +753,28 @@
     "arch": "amd64",
     "runner": "windows-latest",
     "version": 18,
+    "unsupported": false,
+    "deprecated": false,
+    "devel": false,
+    "beta": false
+  },
+  {
+    "emoji": "🪟",
+    "os": "windows",
+    "arch": "arm64",
+    "runner": "windows-11-arm",
+    "version": 19,
+    "unsupported": false,
+    "deprecated": false,
+    "devel": false,
+    "beta": false
+  },
+  {
+    "emoji": "🪟",
+    "os": "windows",
+    "arch": "amd64",
+    "runner": "windows-latest",
+    "version": 19,
     "unsupported": false,
     "deprecated": false,
     "devel": false,
