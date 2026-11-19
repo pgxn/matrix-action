@@ -433,6 +433,17 @@
     "os": "macos",
     "arch": "arm64",
     "runner": "macos-latest",
+    "version": 19,
+    "unsupported": false,
+    "deprecated": false,
+    "devel": false,
+    "beta": false
+  },
+  {
+    "emoji": "🍎",
+    "os": "macos",
+    "arch": "arm64",
+    "runner": "macos-latest",
     "version": 17,
     "unsupported": false,
     "deprecated": false,
